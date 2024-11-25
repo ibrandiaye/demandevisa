@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\DemandeurController;
+use App\Http\Controllers\HebergeurController;
+use App\Models\Demandeur;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,3 +23,5 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::resource('hebergeur', controller: HebergeurController::class)->middleware("auth");
+Route::resource('demandeur', controller: DemandeurController::class)->middleware("auth");
