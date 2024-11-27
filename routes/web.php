@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DemandeController;
 use App\Http\Controllers\DemandeurController;
 use App\Http\Controllers\HebergeurController;
 use App\Models\Demandeur;
@@ -25,3 +26,4 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::resource('hebergeur', controller: HebergeurController::class)/*->middleware("auth")*/;
 Route::resource('demandeur', controller: DemandeurController::class)/*->middleware("auth")*/;
+Route::resource('demande', controller: DemandeController::class);
