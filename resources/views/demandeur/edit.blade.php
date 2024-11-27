@@ -72,8 +72,9 @@
                                     <div class="col-lg-4">
                                         <label>Hebergeur</label>
                                         <select class="form-control" name="hebergeur_id" required="">
+                                            <option value="">Selectionner</option>
                                             @foreach ($hebergeurs as $hebergeur)
-                                            <option value="{{$hebergeur->id}}"  {{ $hebergeur->id==$demandeur->hebergeur_id ? 'selected' : ''}} >{{$hebergeur->nom}}</option>
+                                            <option value="{{$hebergeur->id}}"  {{ $hebergeur->id==$demandeur->hebergeur_id ? 'selected' : ''}} >{{$hebergeur->prenom}} {{$hebergeur->nom}} {{$hebergeur->cni}}</option>
                                                 @endforeach
 
                                         </select>

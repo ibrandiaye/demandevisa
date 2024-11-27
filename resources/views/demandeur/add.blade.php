@@ -66,16 +66,18 @@
                                             <input type="text" name="nationalite"  value="{{ old('nationalite') }}" class="form-control"  required>
                                         </div>
                                     </div>
+                                    <div class="col-md-4">
+                                        <label>Hebergeur</label>
+                                        <select class="form-control" name="hebergeur_id" required="">
+                                            <option value="">Selectionner</option>
+                                            @foreach ($hebergeurs as $hebergeur)
+                                            <option value="{{$hebergeur->id}}">{{$hebergeur->prenom}} {{$hebergeur->nom}} {{$hebergeur->cni}}</option>
+                                                @endforeach
+    
+                                        </select>
+                                    </div>
                                 </div>
-                                <div class="col-lg-4">
-                                    <label>Hebergeur</label>
-                                    <select class="form-control" name="hebergeur_id" required="">
-                                        @foreach ($hebergeurs as $hebergeur)
-                                        <option value="{{$hebergeur->id}}">{{$hebergeur->nom}}</option>
-                                            @endforeach
-
-                                    </select>
-                                </div>
+                               
 
                                 <div>
 

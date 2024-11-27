@@ -23,5 +23,5 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::resource('hebergeur', controller: HebergeurController::class)->middleware("auth");
-Route::resource('demandeur', controller: DemandeurController::class)->middleware("auth");
+Route::resource('hebergeur', controller: HebergeurController::class)/*->middleware("auth")*/;
+Route::resource('demandeur', controller: DemandeurController::class)/*->middleware("auth")*/;

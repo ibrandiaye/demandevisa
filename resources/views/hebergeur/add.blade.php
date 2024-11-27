@@ -41,12 +41,7 @@
                                             <input type="text" name="nom"  value="{{ old('nom') }}" class="form-control"  required>
                                         </div>
                                     </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label>Nom </label>
-                                            <input type="text" name="nom"  value="{{ old('nom') }}" class="form-control"  required>
-                                        </div>
-                                    </div>
+                                   
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label>Prenom </label>

@@ -57,6 +57,20 @@
                     <div id="sidebar-menu">
                         <ul>
                             <li class="menu-title">Menu</li>
+                            <li class="has_sub">
+                                <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-map-marker-multiple"></i><span>Hebergeur </span></a>
+                                <ul class="list-unstyled">
+                                    <li><a href="{{ route('hebergeur.create') }}"> Ajouter</a></li>
+                                    <li><a href="{{ route('hebergeur.index') }}">Lister</a></li>
+                                </ul>
+                            </li>
+                            <li class="has_sub">
+                                <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-map-marker-multiple"></i><span>Demandeur </span></a>
+                                <ul class="list-unstyled">
+                                    <li><a href="{{ route('demandeur.create') }}"> Ajouter</a></li>
+                                    <li><a href="{{ route('demandeur.index') }}">Lister</a></li>
+                                </ul>
+                            </li>
 
                         </ul>
                     </div>

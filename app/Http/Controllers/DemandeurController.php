@@ -3,14 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Repositories\DemandeurRepository;
+use App\Repositories\HebergeurRepository;
 use Illuminate\Http\Request;
 
 class DemandeurController extends Controller
 {
     protected $demandeurRepository;
+    protected $hebergeurRepository;
 
-    public function __construct(DemandeurRepository $demandeurRepository){
+    public function __construct(DemandeurRepository $demandeurRepository,HebergeurRepository $hebergeurRepository){
         $this->demandeurRepository =$demandeurRepository;
+        $this->hebergeurRepository = $hebergeurRepository;
     }
 
     /**
@@ -31,7 +34,8 @@ class DemandeurController extends Controller
      */
     public function create()
     {
-        return view('demandeur.add');
+        $hebergeurs = $this->hebergeurRepository->getAll();
+        return view('demandeur.add',compact("hebergeurs"));
     }
 
     /**
@@ -68,7 +72,8 @@ class DemandeurController extends Controller
     public function edit($id)
     {
         $demandeur = $this->demandeurRepository->getById($id);
-        return view('demandeur.edit',compact('demandeur'));
+        $hebergeurs = $this->hebergeurRepository->getAll();
+        return view('demandeur.edit',compact('demandeur',"hebergeurs"));
     }
 
     /**
