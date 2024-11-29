@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Demande;
+use App\Models\Demandeur;
 use App\Repositories\DemandeRepository;
+use App\Repositories\DemandeurRepository;
 use App\Repositories\HebergeurRepository;
 use Illuminate\Http\Request;
 
@@ -11,10 +14,12 @@ class DemandeController extends Controller
 
     protected $demandeRepository;
     protected $hebergeurRepository;
+    protected $demandeurRepository;
 
-    public function __construct(DemandeRepository $demandeRepository,HebergeurRepository $hebergeurRepository){
+    public function __construct(DemandeRepository $demandeRepository,HebergeurRepository $hebergeurRepository,DemandeurRepository $demandeurRepository){
         $this->demandeRepository =$demandeRepository;
         $this->hebergeurRepository = $hebergeurRepository;
+        $this->demandeurRepository = $demandeurRepository;
     }
 
     /**
@@ -47,7 +52,31 @@ class DemandeController extends Controller
      */
     public function store(Request $request)
     {
-        $demandes = $this->demandeRepository->store($request->all());
+
+        $demande                = $this->demandeRepository->store($request->all());
+
+        $request->merge(['demande_id'=>$demande->id]);
+        //dd($request->demande_id);
+        $hebergeur              = $this->hebergeurRepository->store($request->all());
+
+        $sizeTab                = count($request->nomcand);
+        $nomcands               = $request->nomcand;
+        $prenomcands            = $request->prenomcand;
+        $datenaisscands         = $request->datenaisscand;
+        $passeportcands         = $request->passeportcand;
+        $nationalitecands       = $request->nationalitecand;
+
+        for ($i=0; $i < $sizeTab ; $i++) {
+            $demandeur                    = new Demandeur();
+            $demandeur->nom               = $nomcands[$i];
+            $demandeur->prenom            = $prenomcands[$i];
+            $demandeur->datenaiss         = $datenaisscands[$i];
+            $demandeur->passeport         = $passeportcands[$i];
+            $demandeur->nationalite       = $nationalitecands[$i];
+            $demandeur->hebergeur_id       = $hebergeur->id;
+            $demandeur->save();
+        }
+
         return redirect('demande');
 
     }
@@ -61,7 +90,9 @@ class DemandeController extends Controller
     public function show($id)
     {
         $demande = $this->demandeRepository->getById($id);
-        return view('demande.show',compact('demande'));
+        $hebergeur = $this->hebergeurRepository->getByDemande($id);
+        $demandeurs = $this->demandeurRepository->getByHebergeur($hebergeur->id);
+        return view('demande.show',compact('demande','hebergeur','demandeurs'));
     }
 
     /**

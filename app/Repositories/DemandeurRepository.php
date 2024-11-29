@@ -10,4 +10,9 @@ class DemandeurRepository extends RessourceRepository{
         $this->model = $demandeur;
     }
 
+    public function getByHebergeur($id)
+    {
+        return DB::table("demandeurs")->where("hebergeur_id",$id)->get();
+    }
+
     }

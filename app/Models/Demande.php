@@ -10,6 +10,7 @@ class Demande extends Model
     use HasFactory;
     protected $fillable = [
         'numero',
-        'etat'
+        'etat',
+        'validation','dureelettre','dureechiffre'
     ];
 }

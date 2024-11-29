@@ -734,7 +734,7 @@ License: You must have a valid license purchased only from templatemonster to le
 
     <!-- Init JavaScript -->
     <script src="{{ asset('dist/js/init.js') }}"></script>
-	<script src="{{ asset('dist/js/dashboard2-data.js') }}"></script>
+	{{-- <script src="{{ asset('dist/js/dashboard2-data.js') }}"></script>--}}
 
 @yield('script')
 </body>

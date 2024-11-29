@@ -13,6 +13,7 @@ class Hebergeur extends Model
         'prenom',
         'datenaiss',
         'cni',
-        'demeurant'
+        'demeurant',
+        'demande_id','lieunaiss','pere','mere','profession','tel'
     ];
 }

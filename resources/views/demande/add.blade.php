@@ -11,7 +11,7 @@
         </ol>
     </nav>
     <div class="container">
-        <form action="{{ route('hebergeur.store') }}" method="POST">
+        <form action="{{ route('demande.store') }}" method="POST">
             @csrf
 
             @if ($errors->any())
@@ -81,31 +81,31 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Nom </label>
-                                        <input type="text" name="nom"  value="{{ old('nom') }}" class="form-control"  required>
+                                        <input type="text" name="nomcand[]"  value="{{ old('nom') }}" class="form-control"  required>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Prenom </label>
-                                        <input type="text" name="prenom"  value="{{ old('prenom') }}" class="form-control"  required>
+                                        <input type="text" name="prenomcand[]"  value="{{ old('prenom') }}" class="form-control"  required>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Date de Naissance </label>
-                                        <input type="date" name="datenaiss"  value="{{ old('datenaiss') }}" class="form-control"  required>
+                                        <input type="date" name="datenaisscand[]"  value="{{ old('datenaiss') }}" class="form-control"  required>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>passeport </label>
-                                        <input type="text" name="passeport"  value="{{ old('passeport') }}" class="form-control"  required>
+                                        <input type="text" name="passeportcand[]"  value="{{ old('passeport') }}" class="form-control"  required>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Nationalites </label>
-                                        <input type="text" name="nationalite"  value="{{ old('nationalite') }}" class="form-control"  required>
+                                        <input type="text" name="nationalitecand[]"  value="{{ old('nationalite') }}" class="form-control"  required>
                                     </div>
                                 </div>
 

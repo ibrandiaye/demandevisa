@@ -14,7 +14,7 @@ class Demandeur extends Model
         'datenaiss',
         'passeport',
         'nationalite',
-        'hebergeur_id'
+        'hebergeur_id','expiration','profession','parente','motif'
     ];
 
     public function hebergeur()

@@ -9,5 +9,8 @@ class HebergeurRepository extends RessourceRepository{
     public function __construct(Hebergeur $hebergeur){
         $this->model = $hebergeur;
     }
-
+    public function getByDemande($id)
+    {
+        return DB::table("hebergeurs")->where("demande_id",$id)->first();
+    }
     }

@@ -1,5 +1,5 @@
 @extends('welcome')
-@section('title', '| hebergeur')
+@section('title', '| demande')
 
 
 @section('content')
@@ -10,7 +10,7 @@
 
                                 <ol class="breadcrumb hide-phone p-0 m-0">
                                 <li class="breadcrumb-item"><a href="#" role="button">ACCUEIL</a></li>
-                                <li class="breadcrumb-item active"><a href="{{ route('hebergeur.create') }}" role="button" >ENREGISTRER hebergeur</a></li>
+                                <li class="breadcrumb-item active"><a href="{{ route('demande.create') }}" role="button" >ENREGISTRER demande</a></li>
                                 </ol>
                             </div><!-- /.col -->
                         </div>
@@ -29,34 +29,30 @@
 
 <div class="col-12">
     <div class="card ">
-        <div class="card-header">LISTE D'ENREGISTREMENT DES Hebergeurs</div>
+        <div class="card-header">LISTE D'ENREGISTREMENT DES Demandes</div>
             <div class="card-body">
-               
+
                 <table id="example1" class="table table-bordered table-responsive-md table-striped text-center">
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th>Prenom</th>
-                            <th>Nom</th>
-                            <th>Date de Naissance</th>
-                            <th>CNI</th>
-                            <th>Demeurant</th>
+                            <th>Numero Demande</th>
+                            <th>Etat</th>
+
                             <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
-                    @foreach ($hebergeurs as $hebergeur)
+                    @foreach ($demandes as $demande)
                         <tr>
-                            <td>{{ $hebergeur->id }}</td>
-                            <td>{{ $hebergeur->prenom }}</td>
-                            <td>{{ $hebergeur->nom }}</td>
-                            <td>{{ $hebergeur->datenaiss }}</td>
-                            <td>{{ $hebergeur->cni }}</td>
-                            <td>{{ $hebergeur->demeurant }}</td>
+                            <td>{{ $demande->id }}</td>
+                            <td>{{ $demande->numero }}</td>
+                            <td> @if($demande->etat==0) <span class="badge badge-soft-danger"> En cours de traitement</span> @else <span class="badge badge-soft-success"> traité</span>  @endif</td>
                             <td>
-                                <a href="{{ route('hebergeur.edit', $hebergeur->id) }}" role="button" class="btn btn-primary"><i class="fas fa-edit"></i></a>
-                                {!! Form::open(['method' => 'DELETE', 'route'=>['hebergeur.destroy', $hebergeur->id], 'style'=> 'display:inline', 'onclick'=>"if(!confirm('Êtes-vous sûr de vouloir supprimer cet enregistrement ?')) { return false; }"]) !!}
-                                <button class="btn btn-danger"><i class="far fa-trash-alt"></i></button>
+                                <a href="{{ route('demande.show', $demande->id) }}" role="button" class="btn btn-info"><i class="fa fa-eye"></i></a>
+                                <a href="{{ route('demande.edit', $demande->id) }}" role="button" class="btn btn-primary"><i class="fa fa-edit"></i></a>
+                                {!! Form::open(['method' => 'DELETE', 'route'=>['demande.destroy', $demande->id], 'style'=> 'display:inline', 'onclick'=>"if(!confirm('Êtes-vous sûr de vouloir supprimer cet enregistrement ?')) { return false; }"]) !!}
+                                <button class="btn btn-danger"><i class="fa fa-trash"></i></button>
                                 {!! Form::close() !!}
 
 
