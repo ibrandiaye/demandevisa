@@ -11,7 +11,7 @@
         </ol>
     </nav>
     <div class="container">
-        <form action="{{ route('demande.store') }}" method="POST">
+        <form action="{{ route('storeEnqueteur') }}" method="POST">
             @csrf
 
             @if ($errors->any())
@@ -23,6 +23,7 @@
                 </ul>
             </div>
         @endif
+        <input name="id" value="{{ $hebergeur->id }}" type="hidden">
             <div class="row">
                 <div class="col-6">
                     <div class="card">
@@ -31,75 +32,73 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label>Numero Demande  </label>
-                                        <input type="text" name="numero"  value="{{ old('numero') }}" class="form-control"  required>
+                                        <label>Numero Demande {{ $demande->numero }} </label>
+
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label>Duree de la Demande  </label>
-                                        <input type="number" name="dureechiffre"  value="{{ old('dureechiffre') }}" class="form-control"  required>
+                                        <label>Duree de la Demande  : {{ $demande->dureeletrre }} </label>
+
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label>Nom Hebergeur</label>
-                                        <input type="text" name="nom"  value="{{ old('nom') }}" class="form-control"  required>
+                                        <label>Nom Hebergeur : {{ $hebergeur->nom }}</label>
                                     </div>
                                 </div>
 
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label>Prenom Hebergeur</label>
-                                        <input type="text" name="prenom"  value="{{ old('prenom') }}" class="form-control"  required>
+                                        <label>Prenom Hebergeur : {{ $hebergeur->prenom }}</label>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Date de Naissance Hebergeur</label>
-                                        <input type="date" name="datenaiss"  value="{{ old('datenaiss') }}" class="form-control"  required>
+                                        <input type="date" name="datenaiss"  value="{{  $hebergeur->datenaiss }}" class="form-control"  required>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Lieu Naissance Hebergeur</label>
-                                        <input type="text" name="lieunaiss"  value="{{ old('lieunaiss') }}" class="form-control"  required>
+                                        <input type="text" name="lieunaiss"  value="{{  $hebergeur->lieunaiss }}" class="form-control"  required>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>cni Hebergeur</label>
-                                        <input type="text" name="cni"  value="{{ old('cni') }}" class="form-control"  required>
+                                        <input type="text" name="cni"  value="{{  $hebergeur->cni }}" class="form-control"  required>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>demeurant Hebergeur</label>
-                                        <input type="text" name="demeurant"  value="{{ old('demeurant') }}" class="form-control"  required>
+                                        <input type="text" name="demeurant"  value="{{ $hebergeur->demeurant }}" class="form-control"  required>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Tel Hebergeur</label>
-                                        <input type="text" name="tel"  value="{{ old('tel') }}" class="form-control"  required>
+                                        <input type="text" name="tel"  value="{{ $hebergeur->tel }}" class="form-control"  required>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Profession Hebergeur</label>
-                                        <input type="text" name="profession"  value="{{ old('profession') }}" class="form-control"  required>
+                                        <input type="text" name="profession"  value="{{  $hebergeur->profession }}" class="form-control"  required>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Nom Pere Hebergeur</label>
-                                        <input type="text" name="pere"  value="{{ old('pere') }}" class="form-control"  required>
+                                        <input type="text" name="pere"  value="{{ $hebergeur->pere }}" class="form-control"  required>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Nom Mere Hebergeur</label>
-                                        <input type="text" name="mere"  value="{{ old('mere') }}" class="form-control"  required>
+                                        <input type="text" name="mere"  value="{{  $hebergeur->mere }}" class="form-control"  required>
                                     </div>
                                 </div>
 
@@ -112,10 +111,96 @@
 
                 </div>
                 <div class="col-6">
+
+                    @if (count($demandeurs) >0)
+
+                        @foreach($demandeurs as $key => $value)
+                        </div>
+                        <div class="card">
+                            <div class="card-body">
+
+                                <div class="row">
+
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Nom Demandeur</label>
+                                            <input type="text" name="nomcand[]"  value="{{$value->nom }}" class="form-control"  required>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Prenom Demandeur</label>
+                                            <input type="text" name="prenomcand[]"  value="{{ $value->prenom }}" class="form-control"  required>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Date de Naissance Demandeur</label>
+                                            <input type="date" name="datenaisscand[]"  value="{{ $value->datenaiss }}" class="form-control"  required>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Nationalite Demandeur </label>
+                                            <input type="text" name="nationalitecand[]"  value="{{$value->nationalite }}" class="form-control"  required>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Numero passeport Demandeur</label>
+                                            <input type="text" name="passeportcand[]"  value="{{$value->passeport }}" class="form-control"  required>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>date expiration Demandeur</label>
+                                            <input type="date" name="expirationcand[]"  value="{{ $value->expiration }}" class="form-control"  required>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label><br>Profession Demandeur&nbsp;</label>
+                                            <input type="text" name="professioncand[]"  value="{{$value->profession }}" class="form-control"  required>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Lien de Parente avec l'hebergeur</label>
+                                            <input type="text" name="parentecand[]"  value="{{ $value->parente }}" class="form-control"  required>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label>Motif demande</label>
+                                            <input type="text" name="motifcand[]"  value="{{ $value->motif }}" class="form-control"  required>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                            </div>
+
+                            <div class="card-footer text-center">
+                                @if($key==0)
+                                <center>
+                                    <button type="button" class="btn btn-icon btn-secondary btn-icon-style-1" id="ajoutdemandeur"><span class="btn-icon-wrap"><i class="fa fa-pencil"></i></span></button>
+                                </center>
+                                @else
+                                <button type='button' class='btn btn-icon btn-danger btn-icon-style-1 remove-tr' ><span class='btn-icon-wrap'><i class='fa fa-trash'></i></span></button>
+                                @endif
+
+                            </div>
+
+                        </div>
+                        @endforeach
+
+                    @else
                     <div class="card">
                         <div class="card-body">
 
                             <div class="row">
+
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Nom Demandeur</label>
@@ -183,6 +268,8 @@
                         </div>
 
                     </div>
+                    @endif
+
                 </div>
             </div>
             <div class="row" id="demandeur">

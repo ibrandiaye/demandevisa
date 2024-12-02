@@ -11,6 +11,6 @@ class Demande extends Model
     protected $fillable = [
         'numero',
         'etat',
-        'validation','dureelettre','dureechiffre'
+        'validation','dureelettre','dureechiffre','user_id'
     ];
 }

@@ -10,4 +10,9 @@ class DemandeRepository extends RessourceRepository{
         $this->model = $demande;
     }
 
+    public function getByEnqueteur($id)
+    {
+        return DB::table("demandes")->where("user_id",$id)->get();
+    }
+
     }

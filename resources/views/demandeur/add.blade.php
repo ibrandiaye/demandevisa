@@ -73,18 +73,19 @@
                                             @foreach ($hebergeurs as $hebergeur)
                                             <option value="{{$hebergeur->id}}">{{$hebergeur->prenom}} {{$hebergeur->nom}} {{$hebergeur->cni}}</option>
                                                 @endforeach
-    
+
                                         </select>
                                     </div>
                                 </div>
-                               
+
 
                                 <div>
-
+                                    <center>
                                     <button type="submit" class="btn btn-success btn btn-lg "  onclick="this.disabled=true; this.form.submit();"> ENREGISTRER</button>
 
-
+                                </center>
                                 </div>
+
                             </div>
 
                             </div>

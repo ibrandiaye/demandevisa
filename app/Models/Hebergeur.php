@@ -16,4 +16,8 @@ class Hebergeur extends Model
         'demeurant',
         'demande_id','lieunaiss','pere','mere','profession','tel'
     ];
+    public function demandeur()
+    {
+        return $this->hasOne(Demandeur::class);
+    }
 }
