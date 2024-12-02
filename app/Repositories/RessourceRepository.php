@@ -86,5 +86,80 @@ class RessourceRepository {
 
     }
 
+public function convertNumberToWords($number) {
+    $units = [
+        0 => "zéro", 1 => "un", 2 => "deux", 3 => "trois", 4 => "quatre", 5 => "cinq",
+        6 => "six", 7 => "sept", 8 => "huit", 9 => "neuf", 10 => "dix",
+        11 => "onze", 12 => "douze", 13 => "treize", 14 => "quatorze", 15 => "quinze",
+        16 => "seize", 17 => "dix-sept", 18 => "dix-huit", 19 => "dix-neuf"
+    ];
+
+    $tens = [
+        2 => "vingt", 3 => "trente", 4 => "quarante", 5 => "cinquante",
+        6 => "soixante", 7 => "soixante-dix", 8 => "quatre-vingt", 9 => "quatre-vingt-dix"
+    ];
+
+    if (!is_numeric($number)) {
+        return "Entrée invalide";
+    }
+
+    if ($number < 0) {
+        return "moins " . convertNumberToWords(abs($number));
+    }
+
+    if ($number <= 19) {
+        return $units[$number];
+    }
+
+    if ($number < 100) {
+        $tensValue = intdiv($number, 10);
+        $unitValue = $number % 10;
+
+        $text = $tens[$tensValue];
+        if ($tensValue == 7 || $tensValue == 9) {
+            $text = $tens[$tensValue - 1] . "-" . $units[$unitValue + 10];
+        } elseif ($unitValue > 0) {
+            $text .= "-" . $units[$unitValue];
+        }
+        return $text;
+    }
+
+    if ($number < 1000) {
+        $hundredsValue = intdiv($number, 100);
+        $remainder = $number % 100;
+
+        $text = ($hundredsValue > 1 ? $units[$hundredsValue] . " cent" : "cent");
+        if ($remainder > 0) {
+            $text .= " " . convertNumberToWords($remainder);
+        }
+        return $text;
+    }
+
+    if ($number < 1000000) {
+        $thousandsValue = intdiv($number, 1000);
+        $remainder = $number % 1000;
+
+        $text = ($thousandsValue > 1 ? convertNumberToWords($thousandsValue) . " mille" : "mille");
+        if ($remainder > 0) {
+            $text .= " " . convertNumberToWords($remainder);
+        }
+        return $text;
+    }
+
+    if ($number < 1000000000) {
+        $millionsValue = intdiv($number, 1000000);
+        $remainder = $number % 1000000;
+
+        $text = convertNumberToWords($millionsValue) . " million" . ($millionsValue > 1 ? "s" : "");
+        if ($remainder > 0) {
+            $text .= " " . convertNumberToWords($remainder);
+        }
+        return $text;
+    }
+
+    return "Nombre trop grand";
+}
+
+
 
 }

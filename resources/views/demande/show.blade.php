@@ -12,16 +12,17 @@
     </nav>
     <div class="container">
        <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-5">
             <div class="card">
                 <div class="card-body">
-                   <li> N°Demande {{ $demande->numero }}</li>
-                <li> @if($demande->etat==0) <span class="badge badge-soft-danger"> En cours de traitement</span> @else <span class="badge badge-soft-success"> traité</span>  @endif</li>
-                <li>Date demande : {{ $demande->created_at }} </li>
+                   <li> N°Demande: <strong>{{ $demande->numero }}</strong></li>
+                <li><strong> @if($demande->etat==0) <span class="badge badge-soft-danger"> En cours de traitement</span> @else <span class="badge badge-soft-success"> traité</span>  @endif</strong></li>
+                <li>Date demande : <strong>{{ $demande->created_at }} </strong></li>
+                <li>Durée de la demande  : <strong>{{ $demande->dureelettre }} mois </strong></li>
             </div>
             </div>
         </div>
-        <div class="col-md-8">
+        <div class="col-md-7">
             <div class="row">
                 <div class="col-md-12">
                     <div class="card">
@@ -29,10 +30,16 @@
                             Herbergeur
                         </div>
                         <div class="card-body">
-                            <li>Nom : {{ $hebergeur->prenom }}  {{ $hebergeur->nom }}</li>
-                            <li>Date de Niaissance :  {{ $hebergeur->datenaiss }} </li>
-                            <li>N°Carte d'identte : {{ $hebergeur->cni }} </li>
-                            <li>Demeurant :  {{ $hebergeur->demeurant }}</li>
+                            <li>Nom : <strong> {{ $hebergeur->prenom }}  {{ $hebergeur->nom }}</strong></li>
+                            <li>Date de Niaissance :  <strong>{{ $hebergeur->datenaiss }} </strong></li>
+                            <li>Lieu de Niaissance : <strong> {{ $hebergeur->lieunaiss }} </strong></li>
+                            <li>N°Carte d'identite :<strong> {{ $hebergeur->cni }} </strong></li>
+                            <li>Demeurant : <strong> {{ $hebergeur->demeurant }}</strong></li>
+                            <li>Tel  : <strong>{{ $hebergeur->tel }}</strong> </li>
+                            <li>Profession :<strong> {{ $hebergeur->profession }}</strong> </li>
+                            <li>Nom pere :<strong> {{ $hebergeur->pere }} </strong></li>
+                            <li>Nom mere : <strong> {{ $hebergeur->mere }}</strong></li>
+
 
                         </div>
                     </div>
@@ -44,10 +51,15 @@
                             Demandeur
                         </div>
                         <div class="card-body">
-                            <li>Nom : {{ $item->prenom }}  {{ $item->nom }}</li>
-                            <li>Date de Niaissance :  {{ $item->datenaiss }} </li>
-                            <li>Numéro Passepor  : {{ $item->passeport }} </li>
-                            <li>Nationalite :  {{ $item->nationalite }}</li>
+                            <li>Nom :<strong> {{ $item->prenom }}  {{ $item->nom }}</strong></li>
+                            <li>Date de Naissance : <strong> {{ $item->datenaiss }}</strong> </li>
+                            <li>Numéro Passeport  :<strong> {{ $item->passeport }}</strong> </li>
+                            <li>Date d'expiration : <strong> {{ $item->expiration }}</strong> </li>
+                            <li>Nationalite : <strong> {{ $item->nationalite }}</strong></li>
+
+                            <li>Profession : <strong> {{ $item->profession }}</strong> </li>
+                            <li>Lien de Parenté  :<strong> {{ $item->parente }}</strong> </li>
+                            <li>motif : <strong> {{ $item->motif }}</strong></li>
                         </div>
                     </div>
                 </div>

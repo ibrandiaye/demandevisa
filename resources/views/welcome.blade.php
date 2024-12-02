@@ -6,7 +6,7 @@ Contact: https://hencework.ticksy.com/
 
 License: You must have a valid license purchased only from templatemonster to legally use the template for your project.
 -->
-<html lang="en">
+<html lang="fr">
 
 <head>
     <meta charset="UTF-8" />

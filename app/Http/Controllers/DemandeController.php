@@ -52,11 +52,14 @@ class DemandeController extends Controller
      */
     public function store(Request $request)
     {
+        $request->merge(['dureelettre'=>$this->demandeRepository->convertNumberToWords($request->dureechiffre)]);
+
 
         $demande                = $this->demandeRepository->store($request->all());
-
-        $request->merge(['demande_id'=>$demande->id]);
+      //  dd($this->demandeRepository->convertNumberToWords($request->dureechiffre));
         //dd($request->demande_id);
+        $request->merge(['demande_id'=>$demande->id]);
+
         $hebergeur              = $this->hebergeurRepository->store($request->all());
 
         $sizeTab                = count($request->nomcand);
@@ -66,6 +69,11 @@ class DemandeController extends Controller
         $passeportcands         = $request->passeportcand;
         $nationalitecands       = $request->nationalitecand;
 
+        $expirations            = $request->expirationcand;
+        $professions            = $request->professioncand;
+        $parentes               = $request->parentecand;
+        $motifs               = $request->motifcand;
+
         for ($i=0; $i < $sizeTab ; $i++) {
             $demandeur                    = new Demandeur();
             $demandeur->nom               = $nomcands[$i];
@@ -73,7 +81,11 @@ class DemandeController extends Controller
             $demandeur->datenaiss         = $datenaisscands[$i];
             $demandeur->passeport         = $passeportcands[$i];
             $demandeur->nationalite       = $nationalitecands[$i];
-            $demandeur->hebergeur_id       = $hebergeur->id;
+            $demandeur->expiration        = $expirations[$i];
+            $demandeur->profession        = $professions[$i];
+            $demandeur->parente           = $parentes[$i];
+            $demandeur->motif             = $motifs[$i];
+            $demandeur->hebergeur_id      = $hebergeur->id;
             $demandeur->save();
         }
 
