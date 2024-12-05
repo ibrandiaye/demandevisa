@@ -27,3 +27,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::resource('hebergeur', controller: HebergeurController::class)/*->middleware("auth")*/;
 Route::resource('demandeur', controller: DemandeurController::class)/*->middleware("auth")*/;
 Route::resource('demande', controller: DemandeController::class);
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
