@@ -11,11 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('hebergeurs', function (Blueprint $table) {
-            $table->unsignedBigInteger('demande_id');
-            $table->foreign('demande_id')
+        Schema::table('demandes', function (Blueprint $table) {
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')
             ->references("id")
-            ->on("demandes");
+            ->on("users");
         });
     }
 
@@ -24,9 +24,9 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('hebergeurs', function (Blueprint $table) {
-            $table->dropForeign('demande_id');
-            $table->dropColumn('demande_id');
+        Schema::table('demandes', function (Blueprint $table) {
+            $table->dropForeign('user_id');
+            $table->dropColumn('user_id');
         });
     }
 };

@@ -13,4 +13,8 @@ class HebergeurRepository extends RessourceRepository{
     {
         return DB::table("hebergeurs")->where("demande_id",$id)->first();
     }
+    public function getByDemandeEnqueteur($id)
+    {
+        return DB::table("hebergeurs")->where("demande_id",$id)->first();
+    }
     }

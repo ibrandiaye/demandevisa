@@ -7,7 +7,9 @@ use App\Models\Demandeur;
 use App\Repositories\DemandeRepository;
 use App\Repositories\DemandeurRepository;
 use App\Repositories\HebergeurRepository;
+use App\Repositories\UserRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class DemandeController extends Controller
 {
@@ -15,11 +17,12 @@ class DemandeController extends Controller
     protected $demandeRepository;
     protected $hebergeurRepository;
     protected $demandeurRepository;
-
-    public function __construct(DemandeRepository $demandeRepository,HebergeurRepository $hebergeurRepository,DemandeurRepository $demandeurRepository){
-        $this->demandeRepository =$demandeRepository;
-        $this->hebergeurRepository = $hebergeurRepository;
-        $this->demandeurRepository = $demandeurRepository;
+    protected $userRepository;
+    public function __construct(DemandeRepository $demandeRepository,HebergeurRepository $hebergeurRepository,DemandeurRepository $demandeurRepository,UserRepository $userRepository){
+        $this->demandeRepository        = $demandeRepository;
+        $this->hebergeurRepository      = $hebergeurRepository;
+        $this->demandeurRepository      = $demandeurRepository;
+        $this->userRepository           = $userRepository;
     }
 
     /**
@@ -29,7 +32,16 @@ class DemandeController extends Controller
      */
     public function index()
     {
-        $demandes = $this->demandeRepository->getAll();
+        $user = Auth::user();
+        if($user->role=="enqueteur")
+        {
+            $demandes = $this->demandeRepository->getByEnqueteur($user->id);
+        }
+        else
+        {
+            $demandes = $this->demandeRepository->getAll();
+        }
+
         return view('demande.index',compact('demandes'));
     }
 
@@ -41,7 +53,18 @@ class DemandeController extends Controller
     public function create()
     {
         $hebergeurs = $this->hebergeurRepository->getAll();
-        return view('demande.add',compact("hebergeurs"));
+        $user = Auth::user();
+        $users = $this->userRepository->getEnqueteur();
+        if($user->role=="controlleur")
+        {
+            return view('demande.add-acc',compact("hebergeurs","users"));
+        }
+        elseif($user->role=="enqueteur")
+        {
+            return view('demande.add',compact("hebergeurs"));
+        }
+        return view('demande.add',compact("hebergeurs","users"));
+
     }
 
     /**
@@ -52,6 +75,7 @@ class DemandeController extends Controller
      */
     public function store(Request $request)
     {
+        $user = Auth::user();
         $request->merge(['dureelettre'=>$this->demandeRepository->convertNumberToWords($request->dureechiffre)]);
 
 
@@ -61,6 +85,7 @@ class DemandeController extends Controller
         $request->merge(['demande_id'=>$demande->id]);
 
         $hebergeur              = $this->hebergeurRepository->store($request->all());
+
 
         $sizeTab                = count($request->nomcand);
         $nomcands               = $request->nomcand;
@@ -91,6 +116,74 @@ class DemandeController extends Controller
 
         return redirect('demande');
 
+    }
+
+
+    public function storeEnqueteur(Request $request)
+    {
+        $user = Auth::user();
+        //dd($request->id);
+       // dd("ok");
+
+        $this->hebergeurRepository->update($request->id, $request->all());
+
+
+        $this->demandeurRepository->deleteByHebergeur($request->id);
+
+
+
+        $sizeTab                = count($request->nomcand);
+        $nomcands               = $request->nomcand;
+        $prenomcands            = $request->prenomcand;
+        $datenaisscands         = $request->datenaisscand;
+        $passeportcands         = $request->passeportcand;
+        $nationalitecands       = $request->nationalitecand;
+
+        $expirations            = $request->expirationcand;
+        $professions            = $request->professioncand;
+        $parentes               = $request->parentecand;
+        $motifs               = $request->motifcand;
+
+        for ($i=0; $i < $sizeTab ; $i++) {
+            $demandeur                    = new Demandeur();
+            $demandeur->nom               = $nomcands[$i];
+            $demandeur->prenom            = $prenomcands[$i];
+            $demandeur->datenaiss         = $datenaisscands[$i];
+            $demandeur->passeport         = $passeportcands[$i];
+            $demandeur->nationalite       = $nationalitecands[$i];
+            $demandeur->expiration        = $expirations[$i];
+            $demandeur->profession        = $professions[$i];
+            $demandeur->parente           = $parentes[$i];
+            $demandeur->motif             = $motifs[$i];
+            $demandeur->hebergeur_id      = $request->id;
+            $demandeur->save();
+        }
+
+        return redirect('demande');
+
+    }
+
+    public function store_acc(Request $request)
+    {
+        $user = Auth::user();
+        $request->merge(['dureelettre'=>$this->demandeRepository->convertNumberToWords($request->dureechiffre)]);
+
+
+        $demande                = $this->demandeRepository->store($request->all());
+
+        $request->merge(['demande_id'=>$demande->id]);
+
+        $hebergeur              = $this->hebergeurRepository->store($request->all());
+        return redirect('demande');
+
+
+    }
+    public function viewEditForm($id)
+    {
+        $demande = $this->demandeRepository->getById($id);
+        $hebergeur = $this->hebergeurRepository->getByDemande($id);
+        $demandeurs = $this->demandeurRepository->getByHebergeur($hebergeur->id);
+        return view('enqueteur.enquete',compact('demande','hebergeur','demandeurs'));
     }
 
     /**

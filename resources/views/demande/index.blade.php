@@ -50,7 +50,13 @@
                             <td> @if($demande->etat==0) <span class="badge badge-soft-danger"> En cours de traitement</span> @else <span class="badge badge-soft-success"> traité</span>  @endif</td>
                             <td>
                                 <a href="{{ route('demande.show', $demande->id) }}" role="button" class="btn btn-info"><i class="fa fa-eye"></i></a>
+
+                                @if(Auth::user()->role=="enqueteur")
+                                <a href="{{ route('viewEditForm', $demande->id) }}" role="button" class="btn btn-primary"><i class="fa fa-edit"></i></a>
+                                @else
                                 <a href="{{ route('demande.edit', $demande->id) }}" role="button" class="btn btn-primary"><i class="fa fa-edit"></i></a>
+
+                                @endif
                                 {!! Form::open(['method' => 'DELETE', 'route'=>['demande.destroy', $demande->id], 'style'=> 'display:inline', 'onclick'=>"if(!confirm('Êtes-vous sûr de vouloir supprimer cet enregistrement ?')) { return false; }"]) !!}
                                 <button class="btn btn-danger"><i class="fa fa-trash"></i></button>
                                 {!! Form::close() !!}

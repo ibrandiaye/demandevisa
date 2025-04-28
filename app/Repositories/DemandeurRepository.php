@@ -15,4 +15,9 @@ class DemandeurRepository extends RessourceRepository{
         return DB::table("demandeurs")->where("hebergeur_id",$id)->get();
     }
 
+    public function deleteByHebergeur($id)
+    {
+        return DB::table("demandeurs")->where("hebergeur_id",$id)->delete();
+    }
+
     }

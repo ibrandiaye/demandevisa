@@ -19,6 +19,6 @@ class Demandeur extends Model
 
     public function hebergeur()
     {
-        return $this->belongsTo(Hebergeur::class);
+        return $this->hasOne(Hebergeur::class);
     }
 }
